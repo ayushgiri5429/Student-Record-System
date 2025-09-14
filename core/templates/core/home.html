@@ -1,0 +1,137 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 text-center mb-5">
+        <h1 class="display-4 text-primary">Student Record System</h1>
+        <p class="lead text-muted">Comprehensive management system for educational institutions</p>
+    </div>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <div class="card text-center h-100 shadow-sm">
+            <div class="card-body">
+                <div class="text-primary mb-3">
+                    <i class="bi bi-people-fill" style="font-size: 2rem;"></i>
+                </div>
+                <h5 class="card-title">Students</h5>
+                <h2 class="text-primary">{{ student_count }}</h2>
+                <p class="card-text">Total registered students</p>
+                <a href="{% url 'student_list' %}" class="btn btn-outline-primary btn-sm">View Students</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card text-center h-100 shadow-sm">
+            <div class="card-body">
+                <div class="text-success mb-3">
+                    <i class="bi bi-book-fill" style="font-size: 2rem;"></i>
+                </div>
+                <h5 class="card-title">Courses</h5>
+                <h2 class="text-success">{{ course_count }}</h2>
+                <p class="card-text">Available courses</p>
+                <a href="{% url 'course_list' %}" class="btn btn-outline-success btn-sm">View Courses</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card text-center h-100 shadow-sm">
+            <div class="card-body">
+                <div class="text-info mb-3">
+                    <i class="bi bi-building-fill" style="font-size: 2rem;"></i>
+                </div>
+                <h5 class="card-title">Colleges</h5>
+                <h2 class="text-info">{{ college_count }}</h2>
+                <p class="card-text">Registered colleges</p>
+                <a href="{% url 'college_list' %}" class="btn btn-outline-info btn-sm">View Colleges</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card text-center h-100 shadow-sm">
+            <div class="card-body">
+                <div class="text-warning mb-3">
+                    <i class="bi bi-clipboard-check-fill" style="font-size: 2rem;"></i>
+                </div>
+                <h5 class="card-title">Admissions</h5>
+                <h2 class="text-warning">{{ admission_count }}</h2>
+                <p class="card-text">Total admissions</p>
+                <a href="{% url 'admission_list' %}" class="btn btn-outline-warning btn-sm">View Admissions</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activities and Statistics -->
+<div class="row mt-5">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-graph-up"></i> System Statistics</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <span><i class="bi bi-people text-primary"></i> Total Students</span>
+                        <span class="badge bg-primary rounded-pill">{{ student_count }}</span>
+                    </div>
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <span><i class="bi bi-book text-success"></i> Total Courses</span>
+                        <span class="badge bg-success rounded-pill">{{ course_count }}</span>
+                    </div>
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <span><i class="bi bi-building text-info"></i> Total Colleges</span>
+                        <span class="badge bg-info rounded-pill">{{ college_count }}</span>
+                    </div>
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <span><i class="bi bi-clipboard-check text-warning"></i> Total Admissions</span>
+                        <span class="badge bg-warning rounded-pill">{{ admission_count }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="bi bi-clock-history"></i> Recent Activities</h5>
+            </div>
+            <div class="card-body">
+                {% if recent_activities %}
+                <div class="list-group">
+                    {% for activity in recent_activities %}
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">{{ activity.title }}</h6>
+                            <small class="text-muted">{{ activity.time }}</small>
+                        </div>
+                        <p class="mb-1">{{ activity.description }}</p>
+                        {% if activity.status %}
+                        <small class="text-muted">Status: {{ activity.status }}</small>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center text-muted py-4">
+                    <i class="bi bi-inbox" style="font-size: 2rem;"></i>
+                    <p class="mt-2">No recent activities</p>
+                    <a href="{% url 'add_admission' %}" class="btn btn-primary btn-sm">Create First Admission</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
