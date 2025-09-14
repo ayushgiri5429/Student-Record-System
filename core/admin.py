@@ -30,5 +30,5 @@ class AdmissionAdmin(admin.ModelAdmin):
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'role')
-    list_editable = ('role',)  # Allow changing role directly in the list
+    list_editable = ('role',)  
     search_fields = ('user__username', 'role')
