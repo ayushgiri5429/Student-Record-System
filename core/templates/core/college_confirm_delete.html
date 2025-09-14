@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+
+{% block title %}Delete College{% endblock %}
+
+{% block content %}
+<h2>Delete College</h2>
+<p>Are you sure you want to delete the college "{{ college.name }}"?</p>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Yes, Delete</button>
+  <a href="{% url 'college_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

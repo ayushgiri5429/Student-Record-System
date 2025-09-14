@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+
+{% block title %}Delete Admission{% endblock %}
+
+{% block content %}
+<h2>Delete Admission</h2>
+<p>Are you sure you want to delete the admission of "{{ admission.student.full_name }}"?</p>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Yes, Delete</button>
+  <a href="{% url 'admission_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}
